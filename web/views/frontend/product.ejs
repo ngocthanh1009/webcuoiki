@@ -1,0 +1,48 @@
+<% path="" %>
+    <section class="product_section layout_padding">
+        <div class="container">
+            <div class="heading_container heading_center">
+                <h2>
+                    Sản phẩm <span>của chúng tôi</span>
+                </h2>
+            </div>
+            <%- include('view_product') %>
+                <div class="btn-box">
+                    <a href="/products">
+                        Xem tất cả sản phẩm
+                    </a>
+                </div>
+        </div>
+    </section>
+    <script>
+        document.addEventListener("DOMContentLoaded", function (event) {
+            var scrollpos = localStorage.getItem('scrollpos');
+            if (scrollpos) window.scrollTo(0, scrollpos);
+        });
+
+        window.onbeforeunload = function (e) {
+            localStorage.setItem('scrollpos', window.scrollY);
+        };
+
+        function addToCart() {
+            Swal.fire({
+                title: 'Thêm sản phẩm thành công!',
+                icon: 'success',
+                confirmButtonText: 'Đồng ý'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.reload();
+                }
+            });
+        }
+
+        function checkQuantity() {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Xin lỗi 😭😭😭!',
+                text: 'Sản phẩm này đã hết hàng!',
+                icon: 'warning',
+                confirmButtonText: 'Đồng ý',
+            })
+        }
+    </script>

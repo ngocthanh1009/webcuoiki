@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <%- include('css') %>
+    <% path='category'%>
+</head>
+
+<body>
+    <div class="container-scroller">
+        <!-- partial:partials/_sidebar.html -->
+        <%- include('siderbar') %>
+        <!-- header -->
+        <%- include('header') %>
+        <!-- body -->
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <% if (message) { %>
+                    <div class="alert alert-<%= message.type %>">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+                        <%= message.content %>
+                    </div>
+                <% } %>
+                <div class="div_center">
+                    <h2>Quản lý danh mục</h2>
+                </div>
+        
+                <div class="row">
+                    <div class="col-md-6">
+                        <form action="<%= category._id ? '/category/edit/' + category._id : '/category' %>" method="POST">
+                            <div class="form-group">
+                                <label>Tên danh mục: </label>
+                                <input type="text" name="id" hidden value="<%= category._id%>">
+                                <input type="text" name="name" class="form-control" placeholder="Nhập tên danh mục" value="<%= category.name%>">
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-success">Lưu</button>
+                            </div>
+                        </form>
+                    </div>
+        
+                    <div class="col-md-6">
+                        <label></label>
+                        <table class="table mb-0 align-middle text-nowrap table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="border-top-0">STT</th>
+                                    <th class="border-top-0">Tên danh mục</th>
+                                    <th class="border-top-0" style="width: 100px">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% var index =1; for(let category of categories) {%>
+                                <tr>
+                                    <td><%= index++%></td>
+                                    <td><%= category.name%></td>
+                                    <td>
+                                        <a href="/category/edit/<%= category._id %>" class="btn btn-primary">Sửa</a>
+                                        <a onclick="return confirm('Bạn có chắc chắn muốn xóa danh mục này?')"
+                                            href="/category/delete/<%= category._id %>" class="btn btn-danger">Xóa</a>
+                                    </td>
+                                </tr>
+                                <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end body -->
+        <!-- plugins:js -->
+        <%- include('script') %>
+        <!-- End custom js for this page -->
+    </div>
+</body>
+
+</html>

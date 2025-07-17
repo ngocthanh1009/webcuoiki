@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <%- include('css') %>
+    <% path='user'%>
+</head>
+
+<body>
+    <div class="container-scroller">
+    <!-- partial:partials/_sidebar.html -->
+    <%- include('siderbar') %>
+    <!-- partial -->
+    <%- include('header') %>
+    <!-- body -->
+    <!-- partial -->
+    <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="div_center">
+            <h1>Quản lý người dùng</h1>
+            <% if (message) { %>
+                <div class="alert alert-<%= message.type %>">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+                    <%= message.content %>
+                </div>
+            <% } %>
+          </div>
+  
+          <a href="/user/add"><button class="btn btn-success mb-3">Thêm người dùng mới</button></a>
+  
+          <table class="table mb-0 align-middle text-nowrap table-responsive">
+            <thead class="border">
+              <tr>
+                <th class="border-top-0">STT</th>
+                <th class="border-top-0">Họ tên</th>
+                <th class="border-top-0">Email</th>
+                <th class="border-top-0">Số điện thoại</th>
+                <th class="border-top-0">Địa chỉ</th>
+                <th class="border-top-0">Vai trò</th>
+                <th class="border-top-0">Cập nhật lúc</th>
+                <th class="border-top-0" style="width: 100px">Thao tác</th>
+              </tr>
+            </thead>
+            <tbody class="border">
+              <% var index=1; for(var item of users) {%>
+              <tr>
+                <td><%= index++ %></td>
+                <td><%= item.name %></td>
+                <td><%= item.email %></td>
+                <td><%= item.phone %></td>
+                <td><%= item.address %></td>
+                <td><%= item.usertype %></td>
+                <td><%= formatDate(item.updated_at) %></td>
+                <td>
+                  <% if(item.usertype == 'Admin') { %>
+                  <a href="/user/edit/<%= item._id%>"><button class="btn btn-warning">Sửa</button></a>
+                  <%} else{ %>
+                  <a href="/user/edit/<%= item._id%>"><button class="btn btn-warning">Sửa</button></a>
+                  <a onclick="return confirm('Bạn có chắc chắn muốn xóa tài khoản này?')"
+                    href="/user/delete/<%= item._id%>" class="btn btn-danger">Xóa</a>
+                  <%}%>
+                </td>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <!-- End body -->
+    <%- include('script') %>
+    <!-- End custom js for this page -->
+    </div>
+</body>
+
+</html>
